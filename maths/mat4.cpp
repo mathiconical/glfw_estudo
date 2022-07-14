@@ -134,3 +134,41 @@ mat4 mat4::translation(const vec3& translation)
 
 	return r;
 }
+
+
+mat4 mat4::rotation(float angle, const vec3& axis)
+{
+	mat4 result(1.0f);
+
+	float r = toRadians(angle);
+	float c = cos(r);
+	float s = sin(r);
+
+	//! https://slidetodoc.com/arcball-interface-flavia-r-cavalcanti-definition-goal-implementation/
+	// p'(p) = (cosO) P + (1 - cosO) (ê - p) ê + (sinO) * (ê * p)
+
+	result.elements[0 + 0 * 4] = c + (1 - c) * axis.x;
+	result.elements[1 + 0 * 4] = axis.y * axis.x * (1 - c) - axis.z * s;
+	result.elements[2 + 0 * 4] = axis.z * axis.x * (1 - c) + axis.y * s;
+
+	result.elements[0 + 1 * 4] = axis.x * axis.y * (1 - c) + axis.z * s;
+	result.elements[1 + 1 * 4] = c + (1 - c) * axis.y * axis.y;
+	result.elements[2 + 1 * 4] = axis.x * axis.y * (1 - c) - axis.x * s;
+
+	result.elements[0 + 2 * 4] = axis.x * axis.z * (1 - c) - axis.y * s;
+	result.elements[1 + 2 * 4] = axis.y * axis.z * (1 - c) - axis.x * s;
+	result.elements[2 + 2 * 4] = c + (1 - c) * axis.z * axis.z;
+
+	return result;
+}
+
+mat4 mat4::scale(const vec3& scale)
+{
+	mat4 r(1.0f);
+
+	r.elements[0 + 0 * 4] = scale.x;
+	r.elements[1 + 1 * 4] = scale.y;
+	r.elements[2 + 2 * 4] = scale.z;
+
+	return r;
+}
