@@ -19,3 +19,8 @@ mat4::mat4(float diagonal)
 			elements[i] = 0;
 	}
 }
+
+mat4 mat4::identity()
+{
+	return mat4(1.0f);
+}
