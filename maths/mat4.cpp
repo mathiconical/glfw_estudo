@@ -43,3 +43,14 @@ mat4& mat4::multiply(const mat4& rhs)
 		}
 	}
 }
+
+mat4 operator*(mat4 lhs, const mat4& rhs)
+{
+	mat4 r = lhs.multiply(rhs);
+	return r;
+}
+
+mat4& mat4::operator*=(const mat4& rhs)
+{
+	return multiply(rhs);
+}
