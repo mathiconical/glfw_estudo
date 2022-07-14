@@ -24,3 +24,22 @@ mat4 mat4::identity()
 {
 	return mat4(1.0f);
 }
+
+//! a ordem da multiplicacao de matrizes segue a ordem que o
+//! openGl usa, MCO (major column order).
+mat4& mat4::multiply(const mat4& rhs)
+{
+	for (int j{ 0 }; j < 4; j++) 
+	{
+		for (int i{ 0 }; i < 4; i++)
+		{
+			float res = 0.0f;
+			for (int k{ 0 }; k < 4; k++)
+			{
+				//! coluna * linha
+				res += elements[i + k * 4] * rhs.elements[k + j * 4];
+			}
+			elements[i + j * 4] = res;
+		}
+	}
+}
