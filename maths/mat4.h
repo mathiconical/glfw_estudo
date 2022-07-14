@@ -13,7 +13,7 @@ struct mat4 {
 	mat4& multiply();
 
 	mat4& operator*=(const mat4& rhs);
-	friend mat4 operator*(mat4 lhs, const mat4& rhs);
+	friend mat4 operator*(mat4& lhs, const mat4& rhs);
 
 	static mat4 ortographic(float left, float down, float right, float top, float near, float far);
 	static mat4 perspective(float fov, float aspectRatio, float near, float far);
