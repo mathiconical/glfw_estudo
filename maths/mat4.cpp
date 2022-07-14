@@ -117,3 +117,20 @@ mat4 mat4::perspective(float fov, float aspectRatio, float near, float far)
 
 	return r;
 }
+
+mat4 mat4::translation(const vec3& translation)
+{
+	/* TRANS MATRIX
+	* | 1 0 0 x |
+	* | 0 1 0 y |
+	* | 0 0 1 z |
+	* | 0 0 0 1 |
+	*/
+	mat4 r(1.0f);
+
+	r.elements[0 + 3 * 4] = translation.x;
+	r.elements[1 + 3 * 4] = translation.y;
+	r.elements[2 + 3 * 4] = translation.z;
+
+	return r;
+}
