@@ -54,3 +54,28 @@ mat4& mat4::operator*=(const mat4& rhs)
 {
 	return multiply(rhs);
 }
+
+mat4 mat4::orthographic(float left, float right, float bottom, float top, float near, float far)
+{
+	/* ORTHO MATRIX
+	* r-l : right - left
+	* t-p : top   - bottom
+	* f-n : far   - near
+	*
+	* | 2/r-l   0       0    r+l/r-l |
+	* |   0   2/t-b     0    t+b/t-b |
+	* |   0     0    -2/f-n  f+n/f-n |
+	* |   0     0       0       1    |
+	*/
+	mat4 r(1.0f);
+
+	r.elements[0 + 0 * 4] = 2.0f / (right - left);
+	r.elements[1 + 1 * 4] = 2.0f / (top - bottom);
+	r.elements[2 + 2 * 4] = 2.0f / (far - near);
+
+	r.elements[0 + 3 * 4] = (right + left) / (right - left);
+	r.elements[1 + 3 * 4] = (top + bottom) / (top - bottom);
+	r.elements[2 + 3 * 4] = (far + near) / (far - near);
+
+	return r;
+}
